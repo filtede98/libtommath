@@ -7,6 +7,11 @@ double mp_get_double(const mp_int *a)
 {
    int i;
    double d = 0.0, fac = 1.0;
+
+   if (a == NULL) {
+      return 0.0;
+   }
+
    for (i = 0; i < MP_DIGIT_BIT; ++i) {
       fac *= 2.0;
    }

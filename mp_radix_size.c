@@ -10,6 +10,10 @@ mp_err mp_radix_size(const mp_int *a, int radix, size_t *size)
    mp_int a_;
    int b;
 
+   if (a == NULL || size == NULL) {
+      return MP_VAL;
+   }
+
    /* make sure the radix is in range */
    if ((radix < 2) || (radix > 64)) {
       return MP_VAL;

@@ -6,6 +6,10 @@
 /* init a new mp_int */
 mp_err mp_init(mp_int *a)
 {
+   if (a == NULL) {
+      return MP_VAL;
+   }
+
    /* allocate memory required and clear it */
    a->dp = (mp_digit *) MP_CALLOC((size_t)MP_DEFAULT_DIGIT_COUNT, sizeof(mp_digit));
    if (a->dp == NULL) {

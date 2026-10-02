@@ -8,6 +8,9 @@
  */
 void mp_exch(mp_int *a, mp_int *b)
 {
+   if (a == NULL || b == NULL || a == b) {
+      return;
+   }
    MP_EXCH(mp_int, *a, *b);
 }
 #endif

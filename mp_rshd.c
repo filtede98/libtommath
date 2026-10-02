@@ -8,6 +8,10 @@ void mp_rshd(mp_int *a, int b)
 {
    int x;
 
+   if (a == NULL) {
+      return;
+   }
+
    /* if b <= 0 then ignore it */
    if (b <= 0) {
       return;

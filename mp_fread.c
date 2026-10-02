@@ -11,6 +11,10 @@ mp_err mp_fread(mp_int *a, int radix, FILE *stream)
    mp_sign sign = MP_ZPOS;
    int ch;
 
+   if (a == NULL || stream == NULL) {
+      return MP_VAL;
+   }
+
    /* make sure the radix is ok */
    if ((radix < 2) || (radix > 64)) {
       return MP_VAL;

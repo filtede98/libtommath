@@ -6,6 +6,9 @@
 /* set to zero */
 void mp_zero(mp_int *a)
 {
+   if (a == NULL) {
+      return;
+   }
    a->sign = MP_ZPOS;
    s_mp_zero_digs(a->dp, a->used);
    a->used = 0;

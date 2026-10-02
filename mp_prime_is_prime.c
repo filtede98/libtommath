@@ -20,6 +20,10 @@ mp_err mp_prime_is_prime(const mp_int *a, int t, bool *result)
    bool    res;
    mp_err  err;
 
+   if (a == NULL || result == NULL) {
+      return MP_VAL;
+   }
+
    /* default to no */
    *result = false;
 

@@ -10,6 +10,10 @@ mp_err mp_to_ubin(const mp_int *a, uint8_t *buf, size_t maxlen, size_t *written)
    mp_err  err;
    mp_int  t;
 
+   if (a == NULL || (maxlen > 0u && buf == NULL)) {
+      return MP_VAL;
+   }
+
    count = mp_ubin_size(a);
    if (count > maxlen) {
       return MP_BUF;

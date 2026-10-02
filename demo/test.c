@@ -158,6 +158,121 @@ LBL_ERR:
    return EXIT_FAILURE;
 }
 
+static int test_null_guards(void)
+{
+   mp_int a, b, c;
+   char str[64];
+   uint8_t ubuf[64];
+   size_t sz;
+   int val;
+   bool bval;
+
+   DOR(mp_init_multi(&a, &b, &c, NULL));
+
+   /* mp_init / mp_init_size */
+   EXPECT(mp_init(NULL) == MP_VAL);
+   EXPECT(mp_init_size(NULL, 10) == MP_VAL);
+   EXPECT(mp_init_copy(NULL, &a) == MP_VAL);
+   EXPECT(mp_init_copy(&b, NULL) == MP_VAL);
+
+   /* mp_clear / mp_zero / mp_clamp */
+   mp_clear(NULL);
+   mp_zero(NULL);
+   mp_clamp(NULL);
+   mp_set(NULL, 1);
+   mp_exch(NULL, &a);
+   mp_exch(&a, NULL);
+
+   /* mp_grow / mp_shrink / mp_copy */
+   EXPECT(mp_grow(NULL, 10) == MP_VAL);
+   EXPECT(mp_shrink(NULL) == MP_VAL);
+   EXPECT(mp_copy(NULL, &a) == MP_VAL);
+   EXPECT(mp_copy(&a, NULL) == MP_VAL);
+
+   /* comparisons */
+   EXPECT(mp_cmp(NULL, &a) == MP_LT);
+   EXPECT(mp_cmp(&a, NULL) == MP_GT);
+   EXPECT(mp_cmp(NULL, NULL) == MP_EQ);
+   EXPECT(mp_cmp_mag(NULL, &a) == MP_LT);
+   EXPECT(mp_cmp_mag(&a, NULL) == MP_GT);
+   EXPECT(mp_cmp_d(NULL, 10) == MP_LT);
+
+   /* count bits, sizes, get/set double */
+   EXPECT(mp_count_bits(NULL) == 0);
+   EXPECT(mp_ubin_size(NULL) == 0u);
+   EXPECT(mp_sbin_size(NULL) == 0u);
+   EXPECT(mp_get_double(NULL) == 0.0);
+   EXPECT(mp_set_double(NULL, 1.0) == MP_VAL);
+
+   /* arithmetic */
+   EXPECT(mp_add(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_add(&a, NULL, &b) == MP_VAL);
+   EXPECT(mp_add(&a, &a, NULL) == MP_VAL);
+   EXPECT(mp_sub(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_mul(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_div(NULL, &a, &b, &c) == MP_VAL);
+   EXPECT(mp_div(&a, NULL, &b, &c) == MP_VAL);
+   EXPECT(mp_mod(NULL, &a, &b) == MP_VAL);
+
+   /* radix / string */
+   EXPECT(mp_read_radix(NULL, "123", 10) == MP_VAL);
+   EXPECT(mp_read_radix(&a, NULL, 10) == MP_VAL);
+   EXPECT(mp_to_radix(NULL, str, sizeof(str), &sz, 10) == MP_VAL);
+   EXPECT(mp_to_radix(&a, NULL, sizeof(str), &sz, 10) == MP_VAL);
+   EXPECT(mp_radix_size(NULL, 10, &sz) == MP_VAL);
+   EXPECT(mp_radix_size(&a, 10, NULL) == MP_VAL);
+
+   /* bin / binary import/export */
+   EXPECT(mp_to_ubin(NULL, ubuf, sizeof(ubuf), &sz) == MP_VAL);
+   EXPECT(mp_to_ubin(&a, NULL, sizeof(ubuf), &sz) == MP_VAL);
+   EXPECT(mp_from_ubin(NULL, ubuf, sizeof(ubuf)) == MP_VAL);
+   EXPECT(mp_from_ubin(&a, NULL, sizeof(ubuf)) == MP_VAL);
+   EXPECT(mp_to_sbin(NULL, ubuf, sizeof(ubuf), &sz) == MP_VAL);
+   EXPECT(mp_to_sbin(&a, NULL, sizeof(ubuf), &sz) == MP_VAL);
+   EXPECT(mp_from_sbin(NULL, ubuf, sizeof(ubuf)) == MP_VAL);
+   EXPECT(mp_from_sbin(&a, NULL, sizeof(ubuf)) == MP_VAL);
+
+   /* bitwise */
+   EXPECT(mp_and(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_or(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_xor(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_2expt(NULL, 5) == MP_VAL);
+   EXPECT(mp_lshd(NULL, 1) == MP_VAL);
+   mp_rshd(NULL, 1);
+   EXPECT(mp_div_2d(NULL, 1, &b, &c) == MP_VAL);
+   EXPECT(mp_div_2d(&a, 1, NULL, &c) == MP_VAL);
+   EXPECT(mp_mod_2d(NULL, 1, &b) == MP_VAL);
+   EXPECT(mp_mod_2d(&a, 1, NULL) == MP_VAL);
+   EXPECT(mp_mul_2d(NULL, 1, &b) == MP_VAL);
+   EXPECT(mp_mul_2d(&a, 1, NULL) == MP_VAL);
+
+   /* math functions */
+   EXPECT(mp_gcd(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_lcm(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_exptmod(NULL, &a, &a, &b) == MP_VAL);
+   EXPECT(mp_invmod(NULL, &a, &b) == MP_VAL);
+   EXPECT(mp_sqrt(NULL, &b) == MP_VAL);
+   EXPECT(mp_sqrt(&a, NULL) == MP_VAL);
+   EXPECT(mp_is_square(NULL, &bval) == MP_VAL);
+   EXPECT(mp_is_square(&a, NULL) == MP_VAL);
+   EXPECT(mp_root_n(NULL, 2, &b) == MP_VAL);
+   EXPECT(mp_root_n(&a, 2, NULL) == MP_VAL);
+   EXPECT(mp_log(NULL, &a, &val) == MP_VAL);
+   EXPECT(mp_kronecker(NULL, &a, &val) == MP_VAL);
+   EXPECT(mp_prime_is_prime(NULL, 5, &bval) == MP_VAL);
+   EXPECT(mp_prime_is_prime(&a, 5, NULL) == MP_VAL);
+   EXPECT(mp_prime_next_prime(NULL, 5, false) == MP_VAL);
+   EXPECT(mp_rand(NULL, 5) == MP_VAL);
+   EXPECT(mp_signed_rsh(NULL, 1, &b) == MP_VAL);
+   EXPECT(mp_pack_count(NULL, 0, 1) == 0u);
+
+   mp_clear_multi(&a, &b, &c, NULL);
+   return EXIT_SUCCESS;
+LBL_ERR:
+   mp_clear_multi(&a, &b, &c, NULL);
+   return EXIT_FAILURE;
+}
+
 static int test_mp_hash(void)
 {
    mp_int a;
@@ -2556,6 +2671,7 @@ static int unit_tests(int argc, char **argv)
 #define T3(n, o1, o2, o3)  { #n, (MP_HAS(o1) && MP_HAS(o2) && MP_HAS(o3)) ? test_##n : NULL }
       T0(feature_detection),
       T0(trivial_stuff),
+      T0(null_guards),
       T1(mp_hash, MP_HASH),
       T2(mp_get_set_i32, MP_GET_I32, MP_GET_MAG_U32),
       T2(mp_get_set_i64, MP_GET_I64, MP_GET_MAG_U64),

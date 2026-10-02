@@ -6,6 +6,10 @@
 /* high level subtraction (handles signs) */
 mp_err mp_sub(const mp_int *a, const mp_int *b, mp_int *c)
 {
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
    if (a->sign != b->sign) {
       /* subtract a negative from a positive, OR */
       /* subtract a positive from a negative. */

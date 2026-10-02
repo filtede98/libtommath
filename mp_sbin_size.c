@@ -6,6 +6,9 @@
 /* get the size for an signed equivalent */
 size_t mp_sbin_size(const mp_int *a)
 {
+   if (a == NULL) {
+      return 0u;
+   }
    return 1u + mp_ubin_size(a);
 }
 #endif

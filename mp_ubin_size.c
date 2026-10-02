@@ -6,6 +6,9 @@
 /* get the size for an unsigned equivalent */
 size_t mp_ubin_size(const mp_int *a)
 {
+   if (a == NULL) {
+      return 0u;
+   }
    size_t size = (size_t)mp_count_bits(a);
    return (size / 8u) + (((size & 7u) != 0u) ? 1u : 0u);
 }

@@ -12,6 +12,10 @@ mp_err mp_exptmod(const mp_int *G, const mp_int *X, const mp_int *P, mp_int *Y)
 {
    int dr;
 
+   if (G == NULL || X == NULL || P == NULL || Y == NULL) {
+      return MP_VAL;
+   }
+
    /* modulus P must be positive */
    if (mp_isneg(P)) {
       return MP_VAL;

@@ -295,6 +295,7 @@ extern MP_PRIVATE const mp_digit s_mp_prime_tab[];
     void name(mp_int * a, type b)                                                      \
     {                                                                                  \
         int i = 0;                                                                     \
+        if (a == NULL) { return; }                                                     \
         while (b != 0u) {                                                              \
             a->dp[i++] = ((mp_digit)b & MP_MASK);                                      \
             if (MP_SIZEOF_BITS(type) <= MP_DIGIT_BIT) { break; }                       \
@@ -308,6 +309,7 @@ extern MP_PRIVATE const mp_digit s_mp_prime_tab[];
 #define MP_SET_SIGNED(name, uname, type, utype)          \
     void name(mp_int * a, type b)                        \
     {                                                    \
+        if (a == NULL) { return; }                       \
         uname(a, (b < 0) ? -(utype)b : (utype)b);        \
         if (b < 0) { a->sign = MP_NEG; }                 \
     }
@@ -326,6 +328,7 @@ extern MP_PRIVATE const mp_digit s_mp_prime_tab[];
 #define MP_GET_MAG(name, type)                                                         \
     type name(const mp_int* a)                                                         \
     {                                                                                  \
+        if (a == NULL) { return (type)0u; }                                            \
         int i = MP_MIN(a->used, (int)((MP_SIZEOF_BITS(type) + MP_DIGIT_BIT - 1) / MP_DIGIT_BIT)); \
         type res = 0u;                                                                 \
         while (i --> 0) {                                                              \
@@ -339,6 +342,7 @@ extern MP_PRIVATE const mp_digit s_mp_prime_tab[];
 #define MP_GET_SIGNED(name, mag, type, utype)                 \
     type name(const mp_int* a)                                \
     {                                                         \
+        if (a == NULL) { return (type)0; }                     \
         utype res = mag(a);                                   \
         return mp_isneg(a) ? (type)-res : (type)res;          \
     }

@@ -8,6 +8,10 @@ mp_err mp_copy(const mp_int *a, mp_int *b)
 {
    mp_err err;
 
+   if (a == NULL || b == NULL) {
+      return MP_VAL;
+   }
+
    /* if dst == src do nothing */
    if (a == b) {
       return MP_OKAY;

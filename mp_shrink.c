@@ -6,6 +6,9 @@
 /* shrink a bignum */
 mp_err mp_shrink(mp_int *a)
 {
+   if (a == NULL) {
+      return MP_VAL;
+   }
    int alloc = MP_MAX(MP_MIN_DIGIT_COUNT, a->used);
    if (a->alloc != alloc) {
       mp_digit *dp = (mp_digit *) MP_REALLOC(a->dp,

@@ -6,6 +6,10 @@
 /* compare a digit */
 mp_ord mp_cmp_d(const mp_int *a, mp_digit b)
 {
+   if (a == NULL) {
+      return MP_LT;
+   }
+
    /* compare based on sign */
    if (mp_isneg(a)) {
       return MP_LT;

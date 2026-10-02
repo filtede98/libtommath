@@ -33,6 +33,10 @@ mp_err mp_is_square(const mp_int *arg, bool *ret)
    mp_int   t;
    uint32_t r;
 
+   if (arg == NULL || ret == NULL) {
+      return MP_VAL;
+   }
+
    /* Default to Non-square :) */
    *ret = false;
 

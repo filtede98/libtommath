@@ -12,6 +12,9 @@
  */
 void mp_clamp(mp_int *a)
 {
+   if (a == NULL) {
+      return;
+   }
    /* decrease used while the most significant digit is
     * zero.
     */

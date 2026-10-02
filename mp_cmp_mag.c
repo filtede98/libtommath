@@ -8,6 +8,16 @@ mp_ord mp_cmp_mag(const mp_int *a, const mp_int *b)
 {
    int n;
 
+   if (a == b) {
+      return MP_EQ;
+   }
+   if (a == NULL) {
+      return MP_LT;
+   }
+   if (b == NULL) {
+      return MP_GT;
+   }
+
    /* compare based on # of non-zero digits */
    if (a->used != b->used) {
       return a->used > b->used ? MP_GT : MP_LT;

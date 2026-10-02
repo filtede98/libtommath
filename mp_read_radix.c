@@ -9,6 +9,10 @@ mp_err mp_read_radix(mp_int *a, const char *str, int radix)
    mp_err   err;
    mp_sign  sign = MP_ZPOS;
 
+   if (a == NULL || str == NULL) {
+      return MP_VAL;
+   }
+
    /* make sure the radix is ok */
    if ((radix < 2) || (radix > 64)) {
       return MP_VAL;

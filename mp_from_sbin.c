@@ -8,6 +8,10 @@ mp_err mp_from_sbin(mp_int *a, const uint8_t *buf, size_t size)
 {
    mp_err err;
 
+   if (a == NULL || (size > 0u && buf == NULL)) {
+      return MP_VAL;
+   }
+
    if (size == 0) {
       return MP_VAL;
    }

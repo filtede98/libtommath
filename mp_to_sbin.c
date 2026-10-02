@@ -7,6 +7,9 @@
 mp_err mp_to_sbin(const mp_int *a, uint8_t *buf, size_t maxlen, size_t *written)
 {
    mp_err err;
+   if (a == NULL || buf == NULL) {
+      return MP_VAL;
+   }
    if (maxlen == 0u) {
       return MP_BUF;
    }

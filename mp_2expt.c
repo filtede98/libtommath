@@ -12,7 +12,7 @@ mp_err mp_2expt(mp_int *a, int b)
 {
    mp_err    err;
 
-   if (b < 0) {
+   if (a == NULL || b < 0) {
       return MP_VAL;
    }
 

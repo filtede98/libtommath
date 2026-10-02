@@ -6,6 +6,9 @@
 /* set to a digit */
 void mp_set(mp_int *a, mp_digit b)
 {
+   if (a == NULL) {
+      return;
+   }
    int oldused = a->used;
    a->dp[0] = b & MP_MASK;
    a->sign  = MP_ZPOS;

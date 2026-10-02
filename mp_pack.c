@@ -15,6 +15,10 @@ mp_err mp_pack(void *rop, size_t maxcount, size_t *written, mp_order order, size
 
    mp_int t;
 
+   if (op == NULL || (maxcount > 0u && rop == NULL)) {
+      return MP_VAL;
+   }
+
    count = mp_pack_count(op, nails, size);
 
    if (count > maxcount) {

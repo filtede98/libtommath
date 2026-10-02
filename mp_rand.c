@@ -8,6 +8,10 @@ mp_err mp_rand(mp_int *a, int digits)
    int i;
    mp_err err;
 
+   if (a == NULL) {
+      return MP_VAL;
+   }
+
    mp_zero(a);
 
    if (digits <= 0) {

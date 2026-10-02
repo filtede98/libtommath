@@ -10,6 +10,10 @@ mp_err mp_gcd(const mp_int *a, const mp_int *b, mp_int *c)
    int     k, u_lsb, v_lsb;
    mp_err err;
 
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
    /* either zero than gcd is the largest */
    if (mp_iszero(a)) {
       return mp_abs(b, c);

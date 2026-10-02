@@ -7,7 +7,7 @@
 void mp_clear(mp_int *a)
 {
    /* only do anything if a hasn't been freed previously */
-   if (a->dp != NULL) {
+   if (a != NULL && a->dp != NULL) {
       /* free ram */
       MP_FREE_DIGS(a->dp, a->alloc);
 

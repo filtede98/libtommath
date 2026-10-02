@@ -16,6 +16,10 @@ mp_err mp_prime_next_prime(mp_int *a, int t, bool bbs_style)
    mp_digit res_tab[MP_PRIME_TAB_SIZE], kstep;
    mp_int   b;
 
+   if (a == NULL) {
+      return MP_VAL;
+   }
+
    /* force positive */
    a->sign = MP_ZPOS;
 

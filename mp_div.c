@@ -7,6 +7,10 @@ mp_err mp_div(const mp_int *a, const mp_int *b, mp_int *c, mp_int *d)
 {
    mp_err err;
 
+   if (a == NULL || b == NULL) {
+      return MP_VAL;
+   }
+
    /* is divisor zero ? */
    if (mp_iszero(b)) {
       return MP_VAL;

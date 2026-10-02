@@ -6,10 +6,17 @@
 /* two complement xor */
 mp_err mp_xor(const mp_int *a, const mp_int *b, mp_int *c)
 {
-   int used = MP_MAX(a->used, b->used) + 1, i;
+   int used, i;
    mp_err err;
    mp_digit ac = 1, bc = 1, cc = 1;
-   bool neg = (a->sign != b->sign);
+   bool neg;
+
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
+   used = MP_MAX(a->used, b->used) + 1;
+   neg = (a->sign != b->sign);
 
    if ((err = mp_grow(c, used)) != MP_OKAY) {
       return err;

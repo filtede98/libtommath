@@ -10,6 +10,10 @@ mp_err mp_lcm(const mp_int *a, const mp_int *b, mp_int *c)
    mp_int  t1, t2;
 
 
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
    if ((err = mp_init_multi(&t1, &t2, NULL)) != MP_OKAY) {
       return err;
    }

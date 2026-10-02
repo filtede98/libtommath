@@ -6,6 +6,16 @@
 /* compare two ints (signed)*/
 mp_ord mp_cmp(const mp_int *a, const mp_int *b)
 {
+   if (a == b) {
+      return MP_EQ;
+   }
+   if (a == NULL) {
+      return MP_LT;
+   }
+   if (b == NULL) {
+      return MP_GT;
+   }
+
    /* compare based on sign */
    if (a->sign != b->sign) {
       return mp_isneg(a) ? MP_LT : MP_GT;

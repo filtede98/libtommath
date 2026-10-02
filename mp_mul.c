@@ -7,10 +7,17 @@
 mp_err mp_mul(const mp_int *a, const mp_int *b, mp_int *c)
 {
    mp_err err;
-   int min = MP_MIN(a->used, b->used),
-       max = MP_MAX(a->used, b->used),
-       digs = a->used + b->used + 1;
-   bool neg = (a->sign != b->sign);
+   int min, max, digs;
+   bool neg;
+
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
+   min = MP_MIN(a->used, b->used);
+   max = MP_MAX(a->used, b->used);
+   digs = a->used + b->used + 1;
+   neg = (a->sign != b->sign);
 
    if ((a == b) &&
        MP_HAS(S_MP_SQR_TOOM) && /* use Toom-Cook? */

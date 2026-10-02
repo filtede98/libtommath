@@ -27,6 +27,10 @@ mp_err mp_to_radix(const mp_int *a, char *str, size_t maxlen, size_t *written, i
    mp_digit d;
    char   *_s = str;
 
+   if (a == NULL || str == NULL) {
+      return MP_VAL;
+   }
+
    /* check range of radix and size*/
    if (maxlen < 2u) {
       return MP_BUF;

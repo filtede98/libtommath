@@ -6,7 +6,7 @@
 /* grow as required */
 mp_err mp_grow(mp_int *a, int size)
 {
-   if (size < 0) {
+   if (a == NULL || size < 0) {
       return MP_VAL;
    }
 

@@ -8,6 +8,10 @@ mp_err mp_init_copy(mp_int *a, const mp_int *b)
 {
    mp_err     err;
 
+   if (a == NULL || b == NULL) {
+      return MP_VAL;
+   }
+
    if ((err = mp_init_size(a, b->used)) != MP_OKAY) {
       return err;
    }

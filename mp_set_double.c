@@ -13,6 +13,11 @@ mp_err mp_set_double(mp_int *a, double b)
       double   dbl;
       uint64_t bits;
    } cast;
+
+   if (a == NULL) {
+      return MP_VAL;
+   }
+
    cast.dbl = b;
 
    exp = (int)((unsigned)(cast.bits >> 52) & 0x7FFu);

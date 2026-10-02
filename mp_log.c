@@ -55,6 +55,10 @@ mp_err mp_log(const mp_int *a, const mp_int *b, int *lb)
    mp_err err;
    mp_ord cmp;
 
+   if (a == NULL || b == NULL || lb == NULL) {
+      return MP_VAL;
+   }
+
    if (mp_isneg(a) || mp_iszero(a) || (mp_cmp_d(b, 2u) == MP_LT)) {
       return MP_VAL;
    }

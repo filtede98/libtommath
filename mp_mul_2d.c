@@ -8,7 +8,7 @@ mp_err mp_mul_2d(const mp_int *a, int b, mp_int *c)
 {
    mp_err err;
 
-   if (b < 0) {
+   if (a == NULL || c == NULL || b < 0) {
       return MP_VAL;
    }
 

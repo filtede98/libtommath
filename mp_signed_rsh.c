@@ -7,6 +7,10 @@
 mp_err mp_signed_rsh(const mp_int *a, int b, mp_int *c)
 {
    mp_err err;
+   if (a == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
    if (!mp_isneg(a)) {
       return mp_div_2d(a, b, c, NULL);
    }

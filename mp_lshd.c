@@ -9,6 +9,10 @@ mp_err mp_lshd(mp_int *a, int b)
    mp_err err;
    int x;
 
+   if (a == NULL) {
+      return MP_VAL;
+   }
+
    /* if its less than zero return */
    if (b <= 0) {
       return MP_OKAY;

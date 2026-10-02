@@ -6,7 +6,7 @@
 /* init an mp_init for a given size */
 mp_err mp_init_size(mp_int *a, int size)
 {
-   if (size < 0) {
+   if (a == NULL || size < 0) {
       return MP_VAL;
    }
 

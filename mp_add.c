@@ -6,6 +6,10 @@
 /* high level addition (handles signs) */
 mp_err mp_add(const mp_int *a, const mp_int *b, mp_int *c)
 {
+   if (a == NULL || b == NULL || c == NULL) {
+      return MP_VAL;
+   }
+
    /* handle two cases, not four */
    if (a->sign == b->sign) {
       /* both positive or both negative */
